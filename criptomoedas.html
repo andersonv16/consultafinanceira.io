@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criptomoedas - Dashboard Financeiro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <h1 class="page-title">CRIPTOMOEDAS</h1>
+            <p class="page-subtitle">Mercado de Ativos Digitais</p>
+        </header>
+
+        <nav class="main-nav">
+            <ul class="nav-list">
+                <li><a href="index.html" class="nav-link">Início</a></li>
+                <li><a href="acoes.html" class="nav-link">Ações</a></li>
+                <li><a href="fundos.html" class="nav-link">Fundos Imobiliários</a></li>
+                <li><a href="criptomoedas.html" class="nav-link active">Criptomoedas</a></li>
+            </ul>
+        </nav>
+
+        <!-- Market Overview -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Market Cap Total</div>
+                <div class="stat-value">$3.45T</div>
+                <div class="text-success">+2.87% (24h)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Volume 24h</div>
+                <div class="stat-value">$189.5B</div>
+                <div class="text-success">+15.4% (24h)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Dominância BTC</div>
+                <div class="stat-value">58.7%</div>
+                <div class="text-danger">-0.3% (24h)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Fear & Greed Index</div>
+                <div class="stat-value">Greed 72</div>
+                <div class="text-success">+5 pontos</div>
+            </div>
+        </div>
+
+        <!-- Top Cryptos Table -->
+        <section class="mb-4">
+            <h2 class="card-title">Top Criptomoedas</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Ativo</th>
+                        <th style="text-align: right;">Preço</th>
+                        <th style="text-align: right;">Market Cap</th>
+                        <th style="text-align: right;">Volume 24h</th>
+                        <th style="text-align: right;">Variação 24h</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge badge-info">#1</span></td>
+                        <td>
+                            <div class="symbol">BTC</div>
+                            <div class="asset-name">Bitcoin</div>
+                        </td>
+                        <td class="price" style="text-align: right;">$102,457.32</td>
+                        <td style="text-align: right;" class="text-muted">$2.03T</td>
+                        <td style="text-align: right;" class="text-muted">$54.2B</td>
+                        <td style="text-align: right;">
+                            <span class="badge badge-success">+2.87%</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-info">#2</span></td>
+                        <td>
+                            <div class="symbol">ETH</div>
+                            <div class="asset-name">Ethereum</div>
+                        </td>
+                        <td class="price" style="text-align: right;">$3,845.67</td>
+                        <td style="text-align: right;" class="text-muted">$462.8B</td>
+                        <td style="text-align: right;" class="text-muted">$28.7B</td>
+                        <td style="text-align: right;">
+                            <span class="badge badge-success">+4.12%</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-info">#5</span></td>
+                        <td>
+                            <div class="symbol">SOL</div>
+                            <div class="asset-name">Solana</div>
+                        </td>
+                        <td class="price" style="text-align: right;">$187.43</td>
+                        <td style="text-align: right;" class="text-muted">$94.3B</td>
+                        <td style="text-align: right;" class="text-muted">$8.9B</td>
+                        <td style="text-align: right;">
+                            <span class="badge badge-success">+6.34%</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-info">#8</span></td>
+                        <td>
+                            <div class="symbol">ADA</div>
+                            <div class="asset-name">Cardano</div>
+                        </td>
+                        <td class="price" style="text-align: right;">$0.9234</td>
+                        <td style="text-align: right;" class="text-muted">$32.8B</td>
+                        <td style="text-align: right;" class="text-muted">$1.4B</td>
+                        <td style="text-align: right;">
+                            <span class="badge badge-danger">-1.23%</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-info">#12</span></td>
+                        <td>
+                            <div class="symbol">DOT</div>
+                            <div class="asset-name">Polkadot</div>
+                        </td>
+                        <td class="price" style="text-align: right;">$6.87</td>
+                        <td style="text-align: right;" class="text-muted">$11.2B</td>
+                        <td style="text-align: right;" class="text-muted">$456M</td>
+                        <td style="text-align: right;">
+                            <span class="badge badge-success">+3.45%</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-info">#15</span></td>
+                        <td>
+                            <div class="symbol">LINK</div>
+                            <div class="asset-name">Chainlink</div>
+                        </td>
+                        <td class="price" style="text-align: right;">$24.56</td>
+                        <td style="text-align: right;" class="text-muted">$15.4B</td>
+                        <td style="text-align: right;" class="text-muted">$892M</td>
+                        <td style="text-align: right;">
+                            <span class="badge badge-success">+5.67%</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</body>
+</html>

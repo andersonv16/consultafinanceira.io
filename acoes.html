@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ações - Dashboard Financeiro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <h1 class="page-title">AÇÕES & ETFs</h1>
+            <p class="page-subtitle">Variações e Performance do Mercado</p>
+        </header>
+
+        <nav class="main-nav">
+            <ul class="nav-list">
+                <li><a href="index.html" class="nav-link">Início</a></li>
+                <li><a href="acoes.html" class="nav-link active">Ações</a></li>
+                <li><a href="fundos.html" class="nav-link">Fundos Imobiliários</a></li>
+                <li><a href="criptomoedas.html" class="nav-link">Criptomoedas</a></li>
+            </ul>
+        </nav>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <div class="search-bar">
+                <span class="search-icon">🔍</span>
+                <input 
+                    type="text" 
+                    id="search-input" 
+                    class="search-input" 
+                    placeholder="Pesquisar ativo (ex: PETR4, Apple, Ibovespa...)"
+                    autocomplete="off"
+                />
+            </div>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="filter-container">
+            <button class="filter-btn active" data-filter="all">
+                <span class="filter-icon">📊</span>
+                Todos
+            </button>
+            <button class="filter-btn" data-filter="maiores-altas">
+                <span class="filter-icon">📈</span>
+                Maiores Altas
+            </button>
+            <button class="filter-btn" data-filter="maiores-baixas">
+                <span class="filter-icon">📉</span>
+                Maiores Baixas
+            </button>
+            <button class="filter-btn" data-filter="maior-volume">
+                <span class="filter-icon">💰</span>
+                Maior Volume
+            </button>
+        </div>
+
+        <div class="period-selector">
+            <button class="period-btn active" data-period="1d">Hoje</button>
+            <button class="period-btn" data-period="5d">1 Semana</button>
+            <button class="period-btn" data-period="1mo">1 Mês</button>
+            <button class="period-btn" data-period="3mo">3 Meses</button>
+            <button class="period-btn" data-period="1y">1 Ano</button>
+        </div>
+
+        <!-- Ações Brasileiras -->
+        <section class="mb-4">
+            <h2 class="card-title">Ações Brasileiras</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ativo</th>
+                        <th>Preço</th>
+                        <th style="text-align: right;">Variação</th>
+                        <th style="text-align: right;">Volume</th>
+                    </tr>
+                </thead>
+                <tbody id="acoes-brasileiras">
+                    <tr><td colspan="4" style="text-align: center; padding: 2rem;">Carregando dados...</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- BDRs -->
+        <section class="mb-4">
+            <h2 class="card-title">BDRs (Brazilian Depositary Receipts)</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ativo</th>
+                        <th>Preço</th>
+                        <th style="text-align: right;">Variação</th>
+                        <th style="text-align: right;">Volume</th>
+                    </tr>
+                </thead>
+                <tbody id="bdrs">
+                    <tr><td colspan="4" style="text-align: center; padding: 2rem;">Carregando dados...</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ETFs -->
+        <section class="mb-4">
+            <h2 class="card-title">ETFs (Exchange Traded Funds)</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Ativo</th>
+                        <th>Preço</th>
+                        <th style="text-align: right;">Variação</th>
+                        <th style="text-align: right;">Volume</th>
+                    </tr>
+                </thead>
+                <tbody id="etfs">
+                    <tr><td colspan="4" style="text-align: center; padding: 2rem;">Carregando dados...</td></tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="market-footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <span>Dashboard Financeiro © 2026</span>
+                <span class="footer-separator">|</span>
+                <span>Dados atualizados em tempo real</span>
+            </div>
+            <div class="market-clock" id="market-clock"></div>
+        </div>
+    </footer>
+
+    <script src="assets/js/market-data.js"></script>
+    <script src="assets/js/acoes.js"></script>
+</body>
+</html>

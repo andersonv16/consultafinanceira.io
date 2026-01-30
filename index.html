@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Financeiro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <div class="container">
+        <header class="page-header animate-fadeInDown">
+            <h1 class="page-title">DASHBOARD FINANCEIRO</h1>
+            <p class="page-subtitle">Acompanhamento de Ativos em Tempo Real</p>
+        </header>
+
+        <nav class="main-nav animate-fadeInUp">
+            <ul class="nav-list">
+                <li><a href="index.html" class="nav-link active">Início</a></li>
+                <li><a href="acoes.html" class="nav-link">Ações</a></li>
+                <li><a href="fundos.html" class="nav-link">Fundos Imobiliários</a></li>
+                <li><a href="criptomoedas.html" class="nav-link">Criptomoedas</a></li>
+            </ul>
+        </nav>
+
+        <!-- Ticker Tape -->
+        <div class="ticker-container">
+            <div class="ticker-wrapper">
+                <div class="ticker-content" id="ticker-content">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Market Summary Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">IBOVESPA</div>
+                <div class="stat-value" id="ibov-value">Carregando...</div>
+                <div id="ibov-change" class="stat-subtext">--</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Dólar (USD/BRL)</div>
+                <div class="stat-value" id="usd-value">Carregando...</div>
+                <div id="usd-change" class="stat-subtext">--</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Bitcoin</div>
+                <div class="stat-value" id="btc-value">Carregando...</div>
+                <div id="btc-change" class="stat-subtext">--</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Ethereum</div>
+                <div class="stat-value" id="eth-value">Carregando...</div>
+                <div id="eth-change" class="stat-subtext">--</div>
+            </div>
+        </div>
+
+        <!-- Sobre a B3 - Horizontal -->
+        <section class="about-b3-section mb-4">
+            <div class="card card-horizontal">
+                <div class="card-icon">📊</div>
+                <div class="card-content-horizontal">
+                    <h2 class="card-title">Sobre a B3</h2>
+                    <p class="about-text">
+                        A <strong>B3 (Brasil, Bolsa, Balcão)</strong> é a principal bolsa de valores do Brasil e uma das maiores do mundo em valor de mercado. Fundada em 2017 a partir da fusão da BM&FBOVESPA e da CETIP, a B3 oferece uma ampla gama de serviços financeiros, incluindo negociação de ações, derivativos, títulos públicos e privados, além de serviços de custódia e liquidação. A bolsa opera com mais de 400 empresas listadas e movimenta trilhões de reais anualmente.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Market News - Grid 3 colunas -->
+        <section class="news-section">
+            <h2 class="section-title">Notícias do Mercado Financeiro</h2>
+            <div id="news-container" class="news-grid-3">
+                <div class="news-card-skeleton"></div>
+                <div class="news-card-skeleton"></div>
+                <div class="news-card-skeleton"></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer with Market Clock -->
+    <footer class="market-footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <span>Dashboard Financeiro © 2026</span>
+                <span class="footer-separator">|</span>
+                <span>Dados atualizados em tempo real</span>
+            </div>
+            <div class="market-clock" id="market-clock"></div>
+        </div>
+    </footer>
+
+    <script src="data/market-data.js"></script>
+    <script src="assets/js/home.js"></script>
+</body>
+</html>
