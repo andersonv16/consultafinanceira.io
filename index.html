@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Financeiro</title>
+    <title>Dashboard Financeiro - Versão Premium</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
@@ -13,7 +13,7 @@
     <div class="container">
         <header class="page-header animate-fadeInDown">
             <h1 class="page-title">DASHBOARD FINANCEIRO</h1>
-            <p class="page-subtitle">Acompanhamento de Ativos em Tempo Real</p>
+            <p class="page-subtitle">Acompanhamento de Ativos em Tempo Real com Dados Atualizados</p>
         </header>
 
         <nav class="main-nav animate-fadeInUp">
@@ -22,6 +22,7 @@
                 <li><a href="acoes.html" class="nav-link">Ações</a></li>
                 <li><a href="fundos.html" class="nav-link">Fundos Imobiliários</a></li>
                 <li><a href="criptomoedas.html" class="nav-link">Criptomoedas</a></li>
+                <li><a href="sobre.html" class="nav-link">Sobre</a></li>
             </ul>
         </nav>
 
@@ -33,68 +34,205 @@
                 </div>
             </div>
         </div>
+        <!-- Sobre a B3 - VERSÃO PREMIUM EXPANDIDA -->
+        <section class="about-b3-section">
+            <div class="b3-card animate-fadeInUp">
+                <div class="b3-header">
+                    <div class="b3-icon">📊</div>
+                    <div>
+                        <h2 class="b3-title">B3 - Brasil, Bolsa, Balcão</h2>
+                        <p class="b3-subtitle">A Principal Bolsa de Valores da América Latina e Maior Infraestrutura de Mercado do Brasil</p>
+                    </div>
+                </div>
 
-        <!-- Market Summary Stats -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-label">IBOVESPA</div>
-                <div class="stat-value" id="ibov-value">Carregando...</div>
-                <div id="ibov-change" class="stat-subtext">--</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">Dólar (USD/BRL)</div>
-                <div class="stat-value" id="usd-value">Carregando...</div>
-                <div id="usd-change" class="stat-subtext">--</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">Bitcoin</div>
-                <div class="stat-value" id="btc-value">Carregando...</div>
-                <div id="btc-change" class="stat-subtext">--</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">Ethereum</div>
-                <div class="stat-value" id="eth-value">Carregando...</div>
-                <div id="eth-change" class="stat-subtext">--</div>
-            </div>
-        </div>
+                <!-- Stats Rápidos Expandidos -->
+                <div class="b3-stats-grid">
+                    <div class="b3-stat-card animate-scaleIn">
+                        <div class="b3-stat-value">5M+</div>
+                        <div class="b3-stat-label">Investidores Ativos</div>
+                    </div>
+                    <div class="b3-stat-card animate-scaleIn" style="animation-delay: 0.1s;">
+                        <div class="b3-stat-value">450+</div>
+                        <div class="b3-stat-label">Empresas Listadas</div>
+                    </div>
+                    <div class="b3-stat-card animate-scaleIn" style="animation-delay: 0.2s;">
+                        <div class="b3-stat-value">Top 13</div>
+                        <div class="b3-stat-label">Bolsas do Mundo</div>
+                    </div>
+                    <div class="b3-stat-card animate-scaleIn" style="animation-delay: 0.3s;">
+                        <div class="b3-stat-value">R$ 5T+</div>
+                        <div class="b3-stat-label">Valor de Mercado</div>
+                    </div>
+                </div>
 
-        <!-- Sobre a B3 - Horizontal -->
-        <section class="about-b3-section mb-4">
-            <div class="card card-horizontal">
-                <div class="card-icon">📊</div>
-                <div class="card-content-horizontal">
-                    <h2 class="card-title">Sobre a B3</h2>
-                    <p class="about-text">
-                        A <strong>B3 (Brasil, Bolsa, Balcão)</strong> é a principal bolsa de valores do Brasil e uma das maiores do mundo em valor de mercado. Fundada em 2017 a partir da fusão da BM&FBOVESPA e da CETIP, a B3 oferece uma ampla gama de serviços financeiros, incluindo negociação de ações, derivativos, títulos públicos e privados, além de serviços de custódia e liquidação. A bolsa opera com mais de 400 empresas listadas e movimenta trilhões de reais anualmente.
+                                <!-- Índices Importantes -->
+                <div class="b3-section">
+                    <h3 class="b3-section-title">📊 Principais Índices de Mercado</h3>
+                    <p class="b3-text">
+                        <strong style="color: var(--primary);">• Ibovespa (IBOV):</strong> O termômetro do mercado brasileiro. Reúne as ações mais negociadas, 
+                        representando cerca de 80% do volume total. Ponderado por capitalização e liquidez.<br><br>
+                        
+                        <strong style="color: var(--accent-success);">• IFIX:</strong> Índice dos Fundos Imobiliários. Acompanha os 100 FIIs mais líquidos da B3. 
+                        Referência para quem investe no setor imobiliário via mercado de capitais.<br><br>
+                        
+                        <strong style="color: var(--accent-info);">• IBrX 100:</strong> As 100 ações mais líquidas e de maior capitalização. 
+                        Mais amplo que o Ibovespa, representa melhor a diversidade do mercado.<br><br>
+                        
+                        <strong style="color: var(--accent-warning);">• SMLL (Small Caps):</strong> Índice das empresas de menor capitalização. 
+                        Alto potencial de crescimento, mas maior volatilidade. Para investidores com perfil arrojado.<br><br>
+                        
+                        <strong style="color: #9333ea;">• IDIV:</strong> Índice Dividendos: empresas que historicamente pagam bons dividendos. 
+                        Ideal para quem busca renda passiva consistente.<br><br>
+                        
+                        <strong style="color: #14b8a6;">• ICO2:</strong> Índice Carbono Eficiente. Empresas sustentáveis com boas práticas ESG 
+                        (Environmental, Social and Governance).
+                    </p>
+                </div>
+
+                <!-- Impacto Econômico Detalhado -->
+                <div class="b3-section">
+                    <h3 class="b3-section-title">🚀 Impacto na Economia Brasileira</h3>
+                    <p class="b3-text">
+                        A B3 é muito mais que uma plataforma de investimentos – é um motor essencial da economia:<br><br>
+                        
+                        💰 <strong>Captação de Recursos:</strong> Em 2023, empresas captaram mais de R$ 150 bilhões através de IPOs, 
+                        follow-ons e emissões de títulos. Esse dinheiro financia expansão, inovação e geração de empregos.<br><br>
+                        
+                        💼 <strong>Empregos:</strong> Gera milhares de empregos diretos (corretoras, asset managers, analistas) e 
+                        indiretos (empresas de tecnologia, educação financeira).<br><br>
+                        
+                        📈 <strong>PIB:</strong> Contribui significativamente para o PIB brasileiro. Mercado de capitais saudável = economia forte.<br><br>
+                        
+                        🏭 <strong>Desenvolvimento:</strong> Permite que empresas cresçam sem depender 100% de bancos. Alternativa de 
+                        financiamento mais eficiente para projetos de longo prazo.<br><br>
+                        
+                        🌍 <strong>Integração Global:</strong> Conecta o Brasil aos mercados internacionais, atraindo capital estrangeiro 
+                        e facilitando o investimento de brasileiros no exterior (via BDRs).
+                    </p>
+                </div>
+
+                <!-- Democratização -->
+                <div class="b3-section">
+                    <h3 class="b3-section-title">👥 Democratização dos Investimentos</h3>
+                    <p class="b3-text">
+                        Uma verdadeira revolução aconteceu nos últimos anos:<br><br>
+                        
+                        📱 <strong>Tecnologia:</strong> Apps intuitivos de corretoras como XP, Rico, Clear, NuInvest tornaram investir tão fácil 
+                        quanto usar Instagram. Investimento literalmente na palma da mão.<br><br>
+                        
+                        💸 <strong>Custos Zero:</strong> Muitas corretoras eliminaram taxa de corretagem. Você pode começar com R$ 50 e não pagar nada 
+                        para comprar ações ou FIIs.<br><br>
+                        
+                        🎓 <strong>Educação:</strong> Explosão de conteúdo educacional: canais no YouTube, podcasts, cursos gratuitos da própria B3. 
+                        Investir deixou de ser coisa "só de rico".<br><br>
+                        
+                        ⚖️ <strong>Isenção Fiscal:</strong> Dividendos de ações são isentos de IR. Ganhos em FIIs até R$ 20 mil/mês também. 
+                        O governo incentiva você a investir!<br><br>
+                        
+                        📊 <strong>Números:</strong> De 600 mil CPFs em 2016 para mais de 5 milhões hoje. Crescimento de 733% em poucos anos!
+                    </p>
+                </div>
+
+                <!-- Tecnologia e Segurança -->
+                <div class="b3-section">
+                    <h3 class="b3-section-title">🔐 Infraestrutura Tecnológica e Segurança</h3>
+                    <p class="b3-text">
+                        <strong>PUMA Trading System:</strong> Plataforma de última geração, capaz de processar milhões de ordens por segundo 
+                        com latência ultra-baixa (milissegundos). Entre as mais modernas do mundo.<br><br>
+                        
+                        <strong>Blockchain:</strong> Todas as transações são registradas em blockchain, garantindo transparência total e 
+                        rastreabilidade. Segurança máxima contra fraudes.<br><br>
+                        
+                        <strong>Custódia:</strong> Seus ativos ficam custodiados na B3 em seu CPF. Mesmo se a corretora quebrar, seus 
+                        investimentos estão protegidos por lei.<br><br>
+                        
+                        <strong>Regulação:</strong> CVM (Comissão de Valores Mobiliários) fiscaliza todas as operações. Sistema robusto de 
+                        compliance e prevenção à lavagem de dinheiro.<br><br>
+                        
+                        <strong>Circuit Breaker:</strong> Mecanismos de proteção que pausam negociações em caso de volatilidade extrema, 
+                        protegendo investidores de movimentos anormais.
+                    </p>
+                </div>
+
+                <!-- Para Investidores - BOX DESTACADO -->
+                <div class="b3-highlight">
+                    <strong style="font-size: 1.2rem; display: block; margin-bottom: 1rem; color: var(--primary);">
+                        💡 Guia Rápido Para Começar a Investir
+                    </strong>
+                    <p style="margin: 0.5rem 0; line-height: 1.8;">
+                        <strong>⏰ Horário de Negociação:</strong><br>
+                        Segunda a sexta-feira, das 10h às 17h (horário de Brasília)<br>
+                        After-market: 17h30 às 18h (liquidez menor, spreads maiores)<br><br>
+                        
+                        <strong>💵 Quanto Preciso Para Começar?</strong><br>
+                        • Ações: A partir de R$ 10-50 (frações de ações)<br>
+                        • FIIs: A partir de R$ 80-150 por cota<br>
+                        • Tesouro Direto: A partir de R$ 30<br>
+                        • ETFs: A partir de R$ 50-200<br><br>
+                        
+                        <strong>🏦 Passo a Passo:</strong><br>
+                        1. Abra conta em uma corretora confiável (XP, Rico, Clear, BTG, Itaú, etc.)<br>
+                        2. Transfira dinheiro da sua conta bancária para a conta da corretora<br>
+                        3. Use o app/plataforma da corretora para comprar seus ativos<br>
+                        4. Acompanhe seus investimentos pelo Home Broker ou app<br><br>
+                        
+                        <strong>📚 Educação Financeira:</strong><br>
+                        • Portal B3 Educação: cursos gratuitos certificados<br>
+                        • Simulador de Investimentos B3<br>
+                        • Biblioteca de conteúdo: artigos, vídeos, webinars<br>
+                        • Certificações: CEA, CGA para profissionais<br><br>
+                        
+                        <strong>🛡️ Segurança dos Seus Investimentos:</strong><br>
+                        • Tudo registrado em seu CPF na B3<br>
+                        • Segregação patrimonial: seus ativos não fazem parte do patrimônio da corretora<br>
+                        • FGC: Fundo Garantidor de Créditos cobre até R$ 250 mil em renda fixa<br>
+                        • Regulação CVM e Banco Central<br><br>
+                        
+                        <strong>📊 Custos e Taxas:</strong><br>
+                        • Corretagem: R$ 0 em muitas corretoras (ações, FIIs, ETFs)<br>
+                        • Custódia: R$ 0 a R$ 30/mês (varia por corretora)<br>
+                        • Emolumentos B3: ~0,03% por operação (inevitável)<br>
+                        • Taxa de Performance: varia por fundo/gestora (se aplicável)<br><br>
+                        
+                        <strong>💰 Tributação Simplificada:</strong><br>
+                        • Dividendos de ações: ISENTO de IR<br>
+                        • Vendas de ações até R$ 20 mil/mês: ISENTO<br>
+                        • Lucro em ações (day trade): 20% IR<br>
+                        • Lucro em ações (swing trade): 15% IR<br>
+                        • FIIs: rendimentos isentos (distribuições mensais)
+                    </p>
+                </div>
+                <!-- Footer da Seção B3 -->
+                <div style="margin-top: 2rem; padding: 1rem; text-align: center; color: var(--text-secondary); font-size: 0.9rem; border-top: 1px solid var(--border-default);">
+                    <p style="margin: 0;">
+                        📌 <strong>Lembre-se:</strong> Investir envolve riscos. Estude, diversifique e invista apenas o que você pode perder sem comprometer sua qualidade de vida. 
+                        Rentabilidade passada não garante rentabilidade futura. Consulte sempre um profissional certificado.
                     </p>
                 </div>
             </div>
         </section>
 
-        <!-- Market News - Grid 3 colunas -->
+        <!-- Market News -->
         <section class="news-section">
-            <h2 class="section-title">Notícias do Mercado Financeiro</h2>
-            <div id="news-container" class="news-grid-3">
+            <h2 class="section-title">📰 Últimas Notícias do Mercado Financeiro Brasileiro</h2>
+            <div id="news-container" class="news-grid-4">
                 <div class="news-card-skeleton"></div>
-                <div class="news-card-skeleton"></div>
-                <div class="news-card-skeleton"></div>
-            </div>
-        </section>
+                       </section>
     </div>
 
     <!-- Footer with Market Clock -->
     <footer class="market-footer">
         <div class="footer-content">
             <div class="footer-info">
-                <span>Dashboard Financeiro © 2026</span>
+                <span>Dashboard Financeiro © 2026 - Versão Premium</span>
                 <span class="footer-separator">|</span>
-                <span>Dados atualizados em tempo real</span>
+                <span>Dados atualizados em tempo real via APIs oficiais</span>
             </div>
             <div class="market-clock" id="market-clock"></div>
         </div>
     </footer>
 
     <script src="data/market-data.js"></script>
-    <script src="assets/js/home.js"></script>
+    <script src="JS/home.js"></script>
 </body>
 </html>

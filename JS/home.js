@@ -1,6 +1,10 @@
-// ========== HOME PAGE SCRIPTS ==========
+// ========================================
+// HOME.JS - Página Inicial Melhorada 2026
+// ========================================
 
-// ========== ATUALIZAR TICKER ==========
+// ========================================
+// ATUALIZAR TICKER
+// ========================================
 async function atualizarTicker() {
     const tickerContent = document.getElementById('ticker-content');
     if (!tickerContent) return;
@@ -8,8 +12,8 @@ async function atualizarTicker() {
     try {
         const [cripto, acoes, cambio] = await Promise.all([
             buscarDadosCripto(['bitcoin', 'ethereum', 'solana']),
-            buscarAcoesBR(['^BVSP', 'PETR4', 'VALE3']),
-            buscarCambio(['USD-BRL'])
+            buscarAcoesBR(['^BVSP', 'PETR4', 'VALE3', 'ITUB4']),
+            buscarCambio(['USD-BRL', 'EUR-BRL'])
         ]);
         
         const items = [];
@@ -38,6 +42,17 @@ async function atualizarTicker() {
             });
         }
         
+        // EUR/BRL
+        if (cambio && cambio.EURBRL) {
+            const eur = cambio.EURBRL;
+            items.push({
+                symbol: 'EUR/BRL',
+                price: `R$ ${parseFloat(eur.bid).toFixed(2)}`,
+                change: `${parseFloat(eur.pctChange) >= 0 ? '+' : ''}${parseFloat(eur.pctChange).toFixed(2)}%`,
+                positive: parseFloat(eur.pctChange) >= 0
+            });
+        }
+        
         // Criptomoedas
         if (cripto) {
             if (cripto.bitcoin) {
@@ -59,7 +74,7 @@ async function atualizarTicker() {
             if (cripto.solana) {
                 items.push({
                     symbol: 'SOL',
-                    price: `$${formatarNumero(cripto.solana.usd, 0)}`,
+                    price: `$${formatarNumero(cripto.solana.usd, 2)}`,
                     change: `${cripto.solana.usd_24h_change >= 0 ? '+' : ''}${cripto.solana.usd_24h_change.toFixed(2)}%`,
                     positive: cripto.solana.usd_24h_change >= 0
                 });
@@ -94,7 +109,9 @@ async function atualizarTicker() {
     }
 }
 
-// ========== ATUALIZAR STATS CARDS ==========
+// ========================================
+// ATUALIZAR STATS CARDS
+// ========================================
 async function atualizarStatsCards() {
     try {
         const [cripto, acoes, cambio] = await Promise.all([
@@ -175,112 +192,91 @@ async function atualizarStatsCards() {
     }
 }
 
-// ========== CARREGAR NOTÍCIAS ==========
+// ========================================
+// CARREGAR NOTÍCIAS
+// ========================================
 async function carregarNoticias() {
     const container = document.getElementById('news-container');
     if (!container) return;
-    
+
+    container.innerHTML = `
+        <div class="news-card-skeleton"></div>
+            `;
+
     try {
-        const noticias = await buscarNoticias('(bolsa OR mercado OR ações OR investimentos) brasil', 6);
-        
-        if (noticias && noticias.length > 0) {
-            const noticiasHTML = noticias.map(article => {
-                const timeAgo = calcularTempoAtras(article.publishedAt);
-                const imgUrl = article.urlToImage || 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&h=200&fit=crop';
-                
-                return `
-                    <div class="news-card" onclick="window.open('${article.url}', '_blank')">
-                        <img 
-                            src="${imgUrl}" 
-                            alt="${article.title}" 
-                            class="news-image" 
-                            onerror="this.src='https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&h=200&fit=crop'"
-                        >
-                        <div class="news-content">
-                            <div class="news-title">${article.title}</div>
-                            <div class="news-meta">
-                                <span class="news-source">${article.source.name}</span>
-                                <span class="news-time">${timeAgo}</span>
-                            </div>
+        const artigos = await buscarNoticias('(B3 OR Bovespa OR "mercado de ações" OR "fundos imobiliários" OR economia) AND Brasil', 4);
+
+        if (artigos && artigos.length > 0) {
+            container.innerHTML = artigos.map(noticia => `
+                <div class="news-card animate-fadeInUp" onclick="window.open('${noticia.url}', '_blank')">
+                    <div class="news-image-container">
+                        <img src="${noticia.urlToImage || 'https://images.unsplash.com/photo-1611974717482-58a252bc14ee?w=400'}" 
+                             alt="${noticia.title}" 
+                             class="news-image"
+                             onerror="this.src='https://images.unsplash.com/photo-1611974717482-58a252bc14ee?w=400'">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-title">${noticia.title}</div>
+                        <div class="news-meta">
+                            <span class="news-source">${noticia.source.name}</span>
+                            <span class="news-time">${calcularTempoAtras(noticia.publishedAt)}</span>
                         </div>
                     </div>
-                `;
-            }).join('');
-            
-            container.innerHTML = noticiasHTML;
+                </div>
+            `).join('');
         } else {
-            throw new Error('Sem notícias disponíveis');
+            usarNoticiasFallback(container);
         }
     } catch (error) {
         console.error('Erro ao carregar notícias:', error);
-        carregarNoticiasEstaticas();
+        usarNoticiasFallback(container);
     }
 }
 
-function carregarNoticiasEstaticas() {
-    const container = document.getElementById('news-container');
-    if (!container) return;
-    
-    const noticias = [
-        { 
-            titulo: "Ibovespa fecha em alta com otimismo sobre juros nos EUA", 
-            fonte: "InfoMoney", 
-            tempo: "2h atrás", 
-            imagem: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&h=200&fit=crop",
-            url: "#"
+function usarNoticiasFallback(container) {
+    const noticiasFallback = [
+        {
+            title: "Mercado Financeiro Brasileiro em Crescimento",
+            source: "Portal Financeiro",
+            time: "2 horas atrás",
+            image: "https://images.unsplash.com/photo-1611974717482-58a252bc14ee?w=400",
+            url: "https://www.b3.com.br"
         },
-        { 
-            titulo: "Petrobras anuncia novo programa de dividendos extraordinários", 
-            fonte: "Valor Econômico", 
-            tempo: "4h atrás", 
-            imagem: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=200&fit=crop",
-            url: "#"
+        {
+            title: "B3 Registra Aumento no Volume de Negociações",
+            source: "Economia Brasil",
+            time: "5 horas atrás",
+            image: "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=400",
+            url: "https://www.b3.com.br"
         },
-        { 
-            titulo: "Fundos imobiliários batem recorde de captação em janeiro", 
-            fonte: "Brazil Journal", 
-            tempo: "6h atrás", 
-            imagem: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=200&fit=crop",
-            url: "#"
-        },
-        { 
-            titulo: "Bitcoin ultrapassa US$ 100 mil com expectativa de ETFs", 
-            fonte: "CoinTelegraph", 
-            tempo: "8h atrás", 
-            imagem: "https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=400&h=200&fit=crop",
-            url: "#"
-        },
-        { 
-            titulo: "Banco Central mantém Selic em 13,75% ao ano", 
-            fonte: "G1 Economia", 
-            tempo: "10h atrás", 
-            imagem: "https://images.unsplash.com/photo-1559526324-593bc073d938?w=400&h=200&fit=crop",
-            url: "#"
-        },
-        { 
-            titulo: "Vale anuncia investimento bilionário em energia renovável", 
-            fonte: "Estadão", 
-            tempo: "12h atrás", 
-            imagem: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=400&h=200&fit=crop",
-            url: "#"
+        {
+            title: "Novidades no Mercado de Capitais",
+            source: "Investidor News",
+            time: "1 dia atrás",
+            image: "https://images.unsplash.com/photo-1559526324-593bc073d938?w=400",
+            url: "https://www.b3.com.br"
         }
     ];
-
-    container.innerHTML = noticias.map(n => `
-        <div class="news-card" onclick="window.open('${n.url}', '_blank')">
-            <img src="${n.imagem}" alt="${n.titulo}" class="news-image">
+    
+    container.innerHTML = noticiasFallback.map(noticia => `
+        <div class="news-card" onclick="window.open('${noticia.url}', '_blank')">
+            <div class="news-image-container">
+                <img src="${noticia.image}" alt="${noticia.title}" class="news-image">
+            </div>
             <div class="news-content">
-                <div class="news-title">${n.titulo}</div>
+                <div class="news-title">${noticia.title}</div>
                 <div class="news-meta">
-                    <span class="news-source">${n.fonte}</span>
-                    <span class="news-time">${n.tempo}</span>
+                    <span class="news-source">${noticia.source}</span>
+                    <span class="news-time">${noticia.time}</span>
                 </div>
             </div>
         </div>
     `).join('');
 }
 
-// ========== INICIALIZAÇÃO ==========
+// ========================================
+// INICIALIZAÇÃO
+// ========================================
 document.addEventListener('DOMContentLoaded', async function() {
     // Carregar dados iniciais
     await Promise.all([

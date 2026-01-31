@@ -1,42 +1,42 @@
 // ========================================
-// AÇÕES.JS - Versão Melhorada 2026
+// FUNDOS.JS - Versão Melhorada 2026
 // ========================================
 
-let allStocks = [];
+let allFunds = [];
 let currentFilter = 'all';
 let isSearchActive = false;
 let currentSort = 'price-desc'; // estado da ordenação ativa
 
 const DISPLAY_LIMIT = 40; // exibe 40 inicialmente
 
-const MAIN_TICKERS = [
-    // Mega Cap
-    'PETR4','VALE3','ITUB4','BBDC4','ABEV3','WEGE3','RENT3','B3SA3','ELET3','SUZB3',
-    // Large Cap
-    'RAIL3','RADL3','JBSS3','LREN3','VIVT3','TOTS3','GGBR4','CSNA3','EMBR3','MGLU3',
-    // Bancos & Financeiras
-    'BBAS3','SANB11','CIEL3','EQTL3','COSAN3','MULT3','ITSA4','ABCB3','BBDC3','PCAR3',
-    // Varejo & Consumo
-    'HGTX3','SOMA3','AMER3','ALPA4','RAIA3','TOPE4','UGPA3','MDIA3','ODPV3','CRDD3',
-    // Energia & Utilitários
-    'CPFL3','ELET6','EGIE3','TAEE4','CMIG4','SABD3','SAPR3','SMLE3','PRIO3','PETR3',
-    // Mineração & Materiais
-    'USIM5','PAMB3','KZAF3','FMSA3','GEAF3','CEIP4','CYRE3','RAIZ3','BRMA15','CASH3',
-    // Telcos & Tech
-    'OIBR3','OIBR11','TTSF3','TOFC3','FLEX3','BRQA3','IVAL3','NETL3','PRTA3','KEPP3',
-    // Agro & Alimentos
-    'BEEF3','BRF3','MRSA3','MAFB3','HGTX4','PEAB3','BRSE3','CCOR3','KLBIN3','SLB3',
-    // Real Estate & Construção
-    'TEND3','MRZV3','CONC3','CCRO3','DIRTT3','SANB3','BBVA3','COSAN3','CMIG3','PIBB3',
-    // Extras & Diversificado
-    'TAEE11','UGPA3','RAIA3','PCAR3','EMBR3','CSNA3','GGBR4','TOTS3','VIVT3','LREN3'
+const MAIN_FIIS = [
+    // Top FIIs – Logística & Renda
+    'HGLG11','KNRI11','MXRF11','VISC11','PVBI11','XPML11','BTLG11','KNCR11','GGRC11','RBRR11',
+    // Shopping & Varejo
+    'HGRU11','MALL11','TRXF11','BRCR11','RECT11','ALZR11','JSRE11','RBVA11','VILG11','VINO11',
+    // Escritórios & Comercial
+    'CSHD11','RZAM11','XYZA11','MFFC11','HRSA11','XYZA11','TRTL11','ABCP11','HFCL11','VRLT11',
+    // Renda & Diversificado
+    'XRPP11','RBGS11','HSAF11','BNFS11','TXCO11','RRPF11','HFCP11','ABRO11','PLAF11','MMFF11',
+    // Hospitais & Saúde
+    'HAPT11','HSPI11','HSAF11','BCFF11','BCFE11','BCDS11','MVCO11','HSSH11','RCPH11','PCAF11',
+    // Ativos & Mortgage
+    'MFCM11','VPDI11','MFFI11','XBXL11','BRPR11','BRQM11','BRYO11','BRCA11','BCXS11','BVES11',
+    // Infraestrutura
+    'INFI11','VFST11','XMPT11','VPTS11','HPFI11','BRPR11','BRCA11','BCFE11','BRYO11','BCDS11',
+    // Fundos de Fundos
+    'FFIE11','FFDI11','FFCI11','FFAI11','FFBI11','VFDS11','AFFI11','BFII11','CFII11','DFII11',
+    // Residencial
+    'RZAM11','MFCP11','MFCL11','MFCN11','MFCO11','HFCP11','HFCL11','HFCM11','HFCN11','HFCO11',
+    // Extras & Emergentes
+    'XPML11','MALL11','HGLG11','KNRI11','MXRF11','VISC11','PVBI11','BTLG11','KNCR11','GGRC11'
 ];
 
 // ========================================
 // INICIALIZAÇÃO
 // ========================================
 document.addEventListener('DOMContentLoaded', () => {
-    loadStocks();
+    loadFunds();
     setupFilters();
     setupSortButtons();
     setupModal();
@@ -53,28 +53,22 @@ function setupSortButtons() {
 
     sortButtons.forEach(btn => {
         btn.addEventListener('click', function () {
-            // 1. Remove active de todos
             sortButtons.forEach(b => b.classList.remove('active'));
-            // 2. Adiciona active no clicado
             this.classList.add('active');
 
-            // 3. Atualiza estado
             currentSort = this.dataset.sort;
 
-            // 4. Ordena e re-renderiza com o limite de exibição
-            const ordenados = ordenarAtivos(allStocks);
-            renderStocks(ordenados.slice(0, DISPLAY_LIMIT));
+            const ordenados = ordenarAtivos(allFunds);
+            renderFunds(ordenados.slice(0, DISPLAY_LIMIT));
         });
     });
 }
 
-// Função centralizada que aplica a ordenação atual
 function ordenarAtivos(ativos) {
     const copia = [...ativos];
     if (currentSort === 'price-asc') {
         copia.sort((a, b) => a.price - b.price);
     } else {
-        // default: price-desc
         copia.sort((a, b) => b.price - a.price);
     }
     return copia;
@@ -130,8 +124,9 @@ function setupSearch() {
 }
 window.realizarBusca = realizarBusca;
 window.limparBusca = limparBusca;
-// Certifique-se de que estas funções NÃO estejam dentro de outra função (como o DOMContentLoaded)
-// para que fiquem no escopo global e acessíveis pelo HTML.
+// ========================================
+// BUSCA GLOBAL E FUNCIONAL (FUNDOS)
+// ========================================
 
 async function realizarBusca() {
     const searchInput = document.getElementById('search-input');
@@ -139,45 +134,58 @@ async function realizarBusca() {
 
     const query = searchInput.value.trim().toUpperCase();
     
+    // Se o campo estiver vazio, limpa e volta ao estado inicial
     if (!query) {
         limparBusca();
         return;
     }
     
-    const grid = document.getElementById('assets-grid');
-    if (grid) grid.innerHTML = '<div class="loading">Buscando no mercado total...</div>';
+    const grid = document.getElementById('funds-grid');
+    if (grid) grid.innerHTML = '<div class="loading">Buscando fundo no mercado total...</div>';
     
     try {
-        // 1. BUSCA LOCAL (Top 20 já carregado)
-        const matchesLocais = allStocks.filter(stock => 
-            (stock.symbol && stock.symbol.toUpperCase().includes(query)) || 
-            (stock.name && stock.name.toUpperCase().includes(query))
+        // 1. BUSCA LOCAL: Filtra no array de fundos já carregados (Top 20)
+        // Busca tanto pelo Ticker (HGLG11) quanto pelo Nome (CSHG Logística)
+        const matchesLocais = allFunds.filter(fund => 
+            (fund.symbol && fund.symbol.toUpperCase().includes(query)) || 
+            (fund.name && fund.name.toUpperCase().includes(query))
         );
 
         if (matchesLocais.length > 0) {
             isSearchActive = true;
-            renderStocks(matchesLocais);
+            renderFunds(matchesLocais);
             return; 
         }
 
-        // 2. BUSCA EXTERNA (Fora do Top 20)
-        // A função buscarAtivo consulta a API Brapi/CoinGecko
+        // 2. BUSCA EXTERNA: Usa a API unificada do config.js para buscar fora do Top 20
         const resultado = await buscarAtivo(query); 
         
         if (resultado && resultado.data) {
             isSearchActive = true;
             
-            // Convertemos o dado bruto da API para o formato do seu Card
-            const ativoMapeado = mapearAtivoParaStock(resultado.data);
+            // Mapeia o resultado bruto da API para o formato de Fundo
+            const fundoMapeado = mapearAtivoParaFund(resultado.data);
             
-            // Adicionamos o novo ativo ao array geral para que ele possa ser filtrado/limpo depois
-            if (!allStocks.find(s => s.symbol === ativoMapeado.symbol)) {
-                allStocks.push(ativoMapeado);
+            // Adiciona ao array principal para permitir filtros futuros
+            if (!allFunds.find(f => f.symbol === fundoMapeado.symbol)) {
+                allFunds.push(fundoMapeado);
             }
             
-            renderStocks([ativoMapeado]);
+            renderFunds([fundoMapeado]);
         } else {
-            exibirErroNaoEncontrado(query, grid);
+            // Layout de "Não encontrado"
+            if (grid) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                        <p style="font-size: 1.2rem; color: var(--text-secondary);">
+                            ❌ Fundo ou Administradora "${query}" não encontrado
+                        </p>
+                        <button class="filter-btn" onclick="limparBusca()" style="margin-top: 20px;">
+                            Voltar para listagem completa
+                        </button>
+                    </div>
+                `;
+            }
         }
     } catch (error) {
         console.error('Erro na busca remota:', error);
@@ -185,60 +193,52 @@ async function realizarBusca() {
     }
 }
 
-// Função auxiliar para manter o HTML limpo
-function exibirErroNaoEncontrado(query, grid) {
-    grid.innerHTML = `
-        <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
-            <p style="font-size: 1.2rem; color: var(--text-secondary);">
-                ❌ Ativo ou Empresa "${query}" não encontrado no mercado
-            </p>
-            <button class="filter-btn" onclick="limparBusca()" style="margin-top: 20px;">
-                Voltar para listagem completa
-            </button>
-        </div>
-    `;
-}
 function limparBusca() {
+    // 1. Limpa o texto do input
     const searchInput = document.getElementById('search-input');
     if (searchInput) searchInput.value = '';
     
+    // 2. Reseta estados de controle
     isSearchActive = false;
     currentFilter = 'all';
 
-    // Atualiza visual dos botões de filtro
+    // 3. Reseta visualmente os botões de filtro
     document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.classList.remove('active');
         if (btn.dataset.filter === 'all') btn.classList.add('active');
     });
     
-    // Restaura a lista original com ordenação atual e limite
-    if (allStocks && allStocks.length > 0) {
-        const ordenados = ordenarAtivos(allStocks);
-        renderStocks(ordenados.slice(0, DISPLAY_LIMIT));
+    // 4. Restaura a exibição com ordenação atual e limite
+    if (allFunds && allFunds.length > 0) {
+        const ordenados = ordenarAtivos(allFunds);
+        renderFunds(ordenados.slice(0, DISPLAY_LIMIT));
     } else {
-        loadStocks();
+        loadFunds();
     }
 }
+
+// Expõe as funções globalmente para o onclick do HTML funcionar
+window.realizarBusca = realizarBusca;
+window.limparBusca = limparBusca;
 // ========================================
-// CARREGAMENTO DE AÇÕES
+// CARREGAMENTO DE FUNDOS
 // ========================================
-async function loadStocks() {
-    const grid = document.getElementById('assets-grid');
-    if (grid) grid.innerHTML = '<div class="loading">Carregando ativos em tempo real...</div>';
+async function loadFunds() {
+    const grid = document.getElementById('funds-grid');
+    if (grid) grid.innerHTML = '<div class="loading">Carregando fundos imobiliários...</div>';
 
     try {
-        const dados = await buscarAcoesBR(MAIN_TICKERS, '1d');
+        const dados = await buscarFundos(MAIN_FIIS, '1d');
         
         if (dados && dados.length > 0) {
-            allStocks = dados.map(stock => mapearAtivoParaStock(stock));
-            // Aplica ordenação atual e exibe apenas DISPLAY_LIMIT
-            const ordenados = ordenarAtivos(allStocks);
-            renderStocks(ordenados.slice(0, DISPLAY_LIMIT));
+            allFunds = dados.map(fund => mapearAtivoParaFund(fund));
+            const ordenados = ordenarAtivos(allFunds);
+            renderFunds(ordenados.slice(0, DISPLAY_LIMIT));
         } else {
             throw new Error('Nenhum dado retornado');
         }
     } catch (error) {
-        console.error('Erro ao carregar ações:', error);
+        console.error('Erro ao carregar fundos:', error);
         if (grid) {
             grid.innerHTML = `
                 <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
@@ -249,74 +249,75 @@ async function loadStocks() {
     }
 }
 
-function mapearAtivoParaStock(stock) {
+function mapearAtivoParaFund(fund) {
     return {
-        symbol: stock.symbol,
-        name: stock.longName || stock.shortName || stock.symbol,
-        logourl: getLogoWithFallback(stock.logourl, stock.symbol, 'stock'),
-        price: stock.regularMarketPrice || 0,
-        change: stock.regularMarketChange || 0,
-        changePercent: stock.regularMarketChangePercent || 0,
-        volume: stock.regularMarketVolume || 0,
-        high: stock.regularMarketDayHigh || 0,
-        low: stock.regularMarketDayLow || 0,
-        marketCap: stock.marketCap || 0,
-        type: 'acao'
+        symbol: fund.symbol,
+        name: fund.longName || fund.shortName || fund.symbol,
+        logourl: getLogoWithFallback(fund.logourl, fund.symbol, 'fund'),
+        price: fund.regularMarketPrice || 0,
+        change: fund.regularMarketChange || 0,
+        changePercent: fund.regularMarketChangePercent || 0,
+        volume: fund.regularMarketVolume || 0,
+        high: fund.regularMarketDayHigh || 0,
+        low: fund.regularMarketDayLow || 0,
+        marketCap: fund.marketCap || 0,
+        type: 'fundo'
     };
 }
 
 // ========================================
 // RENDERIZAÇÃO COM FAVORITOS
 // ========================================
-function renderStocks(stocks) {
-    const grid = document.getElementById('assets-grid');
+function renderFunds(funds) {
+    const grid = document.getElementById('funds-grid');
     if (!grid) return;
 
-    grid.innerHTML = stocks.map(stock => {
-        const isFav = FavoritosManager.isFavorito(stock.symbol);
+    grid.innerHTML = funds.map(fund => {
+        const isFav = FavoritosManager.isFavorito(fund.symbol);
         
         return `
             <div class="asset-card">
                 <div class="asset-header">
                     <div style="display: flex; align-items: center; gap: 10px;">
-                        <img src="${stock.logourl}" 
-                             alt="${stock.symbol}" 
+                        <img src="${fund.logourl}" 
+                             alt="${fund.symbol}" 
                              class="asset-logo-img" 
                              width="40" height="40">
+                             
                         <div>
-                            <div class="asset-symbol">${stock.symbol}</div>
-                            <div class="asset-name">${stock.name}</div>
+                            <div class="asset-symbol">${fund.symbol}</div>
+                            <div class="asset-name">${fund.name}</div>
                         </div>
                     </div>
                     <div style="display: flex; align-items: center; gap: 10px;">
                         <button class="favorite-btn ${isFav ? 'active' : ''}" 
-                                onclick="toggleFavorito(event, '${stock.symbol}')"
+                                onclick="toggleFavorito(event, '${fund.symbol}')"
                                 title="${isFav ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}">
                             ${isFav ? '★' : '☆'}
                         </button>
-                        <span class="badge ${stock.changePercent >= 0 ? 'badge-success' : 'badge-danger'}">
-                            ${stock.changePercent >= 0 ? '▲' : '▼'} ${Math.abs(stock.changePercent).toFixed(2)}%
+                        <span class="badge ${fund.changePercent >= 0 ? 'badge-success' : 'badge-danger'}">
+                            ${fund.changePercent >= 0 ? '▲' : '▼'} ${Math.abs(fund.changePercent).toFixed(2)}%
                         </span>
                     </div>
                 </div>
                 
-                <div class="asset-price" onclick="showDetails('${stock.symbol}')" style="cursor: pointer;">
-                    R$ ${stock.price.toFixed(2)}
+                <div class="asset-price" onclick="showDetails('${fund.symbol}')" style="cursor: pointer;">
+                    R$ ${fund.price.toFixed(2)}
                 </div>
                 
-                <div class="asset-change ${stock.change >= 0 ? 'positive' : 'negative'}" 
-                     onclick="showDetails('${stock.symbol}')" style="cursor: pointer;">
-                    <span>R$ ${Math.abs(stock.change).toFixed(2)}</span>
+                <div class="asset-change ${fund.change >= 0 ? 'positive' : 'negative'}" 
+                     onclick="showDetails('${fund.symbol}')" style="cursor: pointer;">
+                    <span>R$ ${Math.abs(fund.change).toFixed(2)}</span>
                 </div>
                 
-                <div class="asset-info" onclick="showDetails('${stock.symbol}')" style="cursor: pointer;">
+                <div class="asset-info" onclick="showDetails('${fund.symbol}')" style="cursor: pointer;">
                     <div class="info-item">
                         <div class="info-label">Volume</div>
-                        <div class="info-value">${formatarVolume(stock.volume)}</div>
+                        <div class="info-value">${formatarVolume(fund.volume)}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Máx/Mín</div>
-                        <div class="info-value">${stock.high.toFixed(2)} / ${stock.low.toFixed(2)}</div>
+                        <div class="info-value">${fund.high.toFixed(2)} / ${fund.low.toFixed(2)}</div>
                     </div>
                 </div>
             </div>
@@ -328,39 +329,38 @@ function renderStocks(stocks) {
 // MODAL DE DETALHES MELHORADO
 // ========================================
 async function showDetails(symbol) {
-    const modal = document.getElementById('asset-modal');
+    const modal = document.getElementById('fund-modal');
     const content = document.getElementById('modal-details');
 
     modal.classList.add('active');
     content.innerHTML = '<div class="loading">Carregando informações detalhadas...</div>';
 
     try {
-        const stock = await buscarDetalheAcao(symbol);
+        const fund = await buscarDetalheFundo(symbol);
         
-        if (!stock) {
+        if (!fund) {
             content.innerHTML = '<p style="color: var(--danger);">Erro ao carregar detalhes</p>';
             return;
         }
 
-        const dividendos = stock.dividendsData && Array.isArray(stock.dividendsData) 
-            ? stock.dividendsData.slice(0, 5) 
+        const dividendos = fund.dividendsData && Array.isArray(fund.dividendsData) 
+            ? fund.dividendsData.slice(0, 5) 
             : [];
 
         const isFav = FavoritosManager.isFavorito(symbol);
 
         content.innerHTML = `
             <div class="modal-header-detail">
-                <img src="${stock.logourl}" 
+                <img src="${getLogoWithFallback(fund.logourl, fund.symbol, 'fund')}" 
                      width="60" 
                      style="border-radius: 8px;"
-                     class="asset-logo-img" 
-                     width="40" height="40">
+                     onerror="this.src='https://s3-symbol-logo.tradingview.com/brasil-bolsa-balcao--big.svg'">
                 <div>
-                    <h2>${stock.symbol}</h2>
-                    <p style="color: var(--text-secondary);">${stock.longName || stock.shortName}</p>
+                    <h2>${fund.symbol}</h2>
+                    <p style="color: var(--text-secondary);">${fund.longName || fund.shortName}</p>
                 </div>
                 <button class="favorite-btn-large ${isFav ? 'active' : ''}" 
-                        onclick="toggleFavoritoModal(event, '${stock.symbol}')"
+                        onclick="toggleFavoritoModal(event, '${fund.symbol}')"
                         title="${isFav ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}">
                     ${isFav ? '★' : '☆'} ${isFav ? 'Favoritado' : 'Favoritar'}
                 </button>
@@ -370,49 +370,46 @@ async function showDetails(symbol) {
                 <div class="stat-box">
                     <strong>Preço Atual</strong>
                     <span style="font-size: 1.5rem; color: var(--primary);">
-                        R$ ${stock.regularMarketPrice.toFixed(2)}
+                        R$ ${fund.regularMarketPrice.toFixed(2)}
                     </span>
                 </div>
-                <div class="stat-box ${stock.regularMarketChangePercent >= 0 ? 'positive' : 'negative'}">
+                <div class="stat-box ${fund.regularMarketChangePercent >= 0 ? 'positive' : 'negative'}">
                     <strong>Variação</strong>
                     <span style="font-size: 1.2rem;">
-                        ${stock.regularMarketChangePercent >= 0 ? '▲' : '▼'} 
-                        ${Math.abs(stock.regularMarketChangePercent).toFixed(2)}%
+                        ${fund.regularMarketChangePercent >= 0 ? '▲' : '▼'} 
+                        ${Math.abs(fund.regularMarketChangePercent).toFixed(2)}%
                     </span>
                 </div>
                 <div class="stat-box">
                     <strong>Volume</strong>
-                    <span>${formatarVolume(stock.regularMarketVolume)}</span>
+                    <span>${formatarVolume(fund.regularMarketVolume)}</span>
                 </div>
                 <div class="stat-box">
                     <strong>Máxima do Dia</strong>
-                    <span>R$ ${stock.regularMarketDayHigh.toFixed(2)}</span>
+                    <span>R$ ${fund.regularMarketDayHigh.toFixed(2)}</span>
                 </div>
                 <div class="stat-box">
                     <strong>Mínima do Dia</strong>
-                    <span>R$ ${stock.regularMarketDayLow.toFixed(2)}</span>
+                    <span>R$ ${fund.regularMarketDayLow.toFixed(2)}</span>
                 </div>
                 <div class="stat-box">
-                    <strong>Cap. Mercado</strong>
-                    <span>${formatarMarketCap(stock.marketCap)}</span>
+                    <strong>Patrimônio</strong>
+                    <span>${formatarMarketCap(fund.marketCap)}</span>
                 </div>
             </div>
 
-            ${stock.sector ? `
+            ${fund.longBusinessSummary ? `
                 <div style="background: var(--bg-tertiary); padding: 15px; border-radius: 8px; margin: 20px 0;">
-                    <h3 style="margin: 0 0 10px 0;">Informações da Empresa</h3>
-                    <p><strong>Setor:</strong> ${stock.sector}</p>
-                    ${stock.longBusinessSummary ? `
-                        <p style="margin-top: 10px; line-height: 1.6; color: var(--text-secondary);">
-                            ${stock.longBusinessSummary}
-                        </p>
-                    ` : ''}
+                    <h3 style="margin: 0 0 10px 0;">Sobre o Fundo</h3>
+                    <p style="line-height: 1.6; color: var(--text-secondary);">
+                        ${fund.longBusinessSummary}
+                    </p>
                 </div>
             ` : ''}
 
             ${dividendos.length > 0 ? `
                 <div style="margin-top: 20px;">
-                    <h3>Últimos Dividendos / JCP</h3>
+                    <h3>Últimos Rendimentos</h3>
                     <table class="data-table" style="width: 100%; margin-top: 10px;">
                         <thead>
                             <tr>
@@ -426,7 +423,7 @@ async function showDetails(symbol) {
                                 <tr>
                                     <td>${new Date(div.paymentDate).toLocaleDateString('pt-BR')}</td>
                                     <td style="text-align: center;">
-                                        <span class="badge badge-info">Dividendo</span>
+                                        <span class="badge badge-info">Rendimento</span>
                                     </td>
                                     <td style="text-align: right;" class="text-success">
                                         ${formatarMoeda(div.assetIssuedDividend)}
@@ -446,7 +443,7 @@ async function showDetails(symbol) {
         `;
     } catch (error) {
         console.error('Erro ao carregar detalhes:', error);
-        content.innerHTML = '<p style="color: var(--danger);">Erro ao carregar detalhes do ativo</p>';
+        content.innerHTML = '<p style="color: var(--danger);">Erro ao carregar detalhes do fundo</p>';
     }
 }
 
@@ -456,12 +453,11 @@ async function showDetails(symbol) {
 function toggleFavorito(event, symbol) {
     event.stopPropagation();
     
-    const stock = allStocks.find(s => s.symbol === symbol);
-    if (!stock) return;
+    const fund = allFunds.find(f => f.symbol === symbol);
+    if (!fund) return;
     
-    const adicionado = FavoritosManager.toggleFavorito(stock);
+    const adicionado = FavoritosManager.toggleFavorito(fund);
     
-    // Atualiza o ícone
     const btn = event.currentTarget;
     if (adicionado) {
         btn.classList.add('active');
@@ -473,7 +469,6 @@ function toggleFavorito(event, symbol) {
         btn.title = 'Adicionar aos favoritos';
     }
     
-    // Se está na aba de favoritos, recarrega
     if (currentFilter === 'favorites') {
         showFavorites();
     }
@@ -482,13 +477,12 @@ function toggleFavorito(event, symbol) {
 function toggleFavoritoModal(event, symbol) {
     event.stopPropagation();
     
-    const stock = allStocks.find(s => s.symbol === symbol);
-    if (!stock) return;
+    const fund = allFunds.find(f => f.symbol === symbol);
+    if (!fund) return;
     
-    const adicionado = FavoritosManager.toggleFavorito(stock);
+    FavoritosManager.toggleFavorito(fund);
     
-    // Fecha e reabre o modal para atualizar
-    const modal = document.getElementById('asset-modal');
+    const modal = document.getElementById('fund-modal');
     modal.classList.remove('active');
     
     setTimeout(() => {
@@ -497,7 +491,6 @@ function toggleFavoritoModal(event, symbol) {
 }
 
 function setupFavoritesTab() {
-    // Adiciona botão de favoritos se não existir
     const filterContainer = document.querySelector('.filter-container');
     if (!filterContainer) return;
     
@@ -516,39 +509,38 @@ function setupFavoritesTab() {
 }
 
 function showFavorites() {
-    const favoritos = FavoritosManager.obterFavoritos().filter(f => f.type === 'acao');
+    const favoritos = FavoritosManager.obterFavoritos().filter(f => f.type === 'fundo');
     
     if (favoritos.length === 0) {
-        const grid = document.getElementById('assets-grid');
+        const grid = document.getElementById('funds-grid');
         grid.innerHTML = `
             <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
                 <p style="font-size: 1.5rem;">⭐</p>
                 <p style="font-size: 1.2rem; color: var(--text-secondary); margin-top: 10px;">
-                    Nenhum ativo favoritado ainda
+                    Nenhum fundo favoritado ainda
                 </p>
                 <p style="color: var(--text-secondary); margin-top: 10px;">
-                    Clique na estrela (☆) nos ativos para adicioná-los aos favoritos
+                    Clique na estrela (☆) nos fundos para adicioná-los aos favoritos
                 </p>
             </div>
         `;
         return;
     }
     
-    // Busca dados atualizados dos favoritos
     const symbols = favoritos.map(f => f.symbol);
     loadFavoritesData(symbols);
 }
 
 async function loadFavoritesData(symbols) {
-    const grid = document.getElementById('assets-grid');
+    const grid = document.getElementById('funds-grid');
     grid.innerHTML = '<div class="loading">Carregando favoritos...</div>';
     
     try {
-        const dados = await buscarAcoesBR(symbols, '1d');
+        const dados = await buscarFundos(symbols, '1d');
         
         if (dados && dados.length > 0) {
-            const stocks = dados.map(stock => mapearAtivoParaStock(stock));
-            renderStocks(stocks);
+            const funds = dados.map(fund => mapearAtivoParaFund(fund));
+            renderFunds(funds);
         }
     } catch (error) {
         console.error('Erro ao carregar favoritos:', error);
@@ -566,7 +558,7 @@ async function loadFavoritesData(symbols) {
 function setupFilters() {
     document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.addEventListener('click', function() {
-            if (this.dataset.filter === 'favorites') return; // Já tratado no setupFavoritesTab
+            if (this.dataset.filter === 'favorites') return;
             
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             this.classList.add('active');
@@ -578,76 +570,39 @@ function setupFilters() {
 }
 
 async function applyFilter() {
-  const grid = document.getElementById('assets-grid');
-
-  if (currentFilter === 'all') {
-    const ordenados = ordenarAtivos(allStocks);
-    renderStocks(ordenados.slice(0, DISPLAY_LIMIT));
-    return;
-  }
-
-  if (grid) {
-    grid.innerHTML = '<div class="loading">Analisando mercado total...</div>';
-  }
-
-  try {
-    let tickersRanking = [];
-
-    switch (currentFilter) {
-      case 'high':   // queremos só quem subiu
-        tickersRanking = await buscarRankingMercado('change', 'desc');
-        break;
-      case 'low':    // queremos só quem caiu
-        tickersRanking = await buscarRankingMercado('change', 'asc');
-        break;
-      case 'volume':
-        tickersRanking = await buscarRankingMercado('volume', 'desc');
-        break;
-      default:
-        break;
+    const grid = document.getElementById('funds-grid');
+    
+    if (currentFilter === 'all') {
+        const ordenados = ordenarAtivos(allFunds);
+        renderFunds(ordenados.slice(0, DISPLAY_LIMIT));
+        return;
     }
 
-    if (!tickersRanking || tickersRanking.length === 0) {
-      if (grid) grid.innerHTML = '<p class="error">Nenhum dado encontrado.</p>';
-      return;
+    if (grid) grid.innerHTML = '<div class="loading">Buscando maiores variações de FIIs...</div>';
+
+    try {
+        // Para FIIs, a Brapi usa o mesmo endpoint, mas filtramos tickers que terminam em 11
+        let direcao = currentFilter === 'low' ? 'asc' : 'desc';
+        let criterio = currentFilter === 'volume' ? 'volume' : 'change';
+        
+        const todosNoRanking = await buscarRankingMercado(criterio, direcao);
+        
+        // Filtra apenas os que são Fundos (geralmente terminam com 11)
+        const apenasFIIs = todosNoRanking.filter(t => t.endsWith('11')).slice(0, 20);
+        
+        const dadosDetalhados = await buscarAcoesBR(apenasFIIs);
+        const fundsMapeados = dadosDetalhados.map(f => mapearAtivoParaFund(f));
+        renderFunds(fundsMapeados);
+    } catch (error) {
+        console.error('Erro nos filtros de FIIs:', error);
     }
-
-    // Busca detalhes de todos os tickers do ranking
-    const dadosDetalhados = await buscarAcoesBR(tickersRanking, '1d');
-
-    let stocksMapeadas = dadosDetalhados.map(s => mapearAtivoParaStock(s));
-
-    // Aqui corrigimos a lógica:
-    if (currentFilter === 'high') {
-      // Só ativos com variação positiva, do maior ganho para o menor
-      stocksMapeadas = stocksMapeadas
-        .filter(s => s.changePercent > 0)
-        .sort((a, b) => b.changePercent - a.changePercent);
-    } else if (currentFilter === 'low') {
-      // Só ativos com variação negativa, da maior queda para a menor
-      stocksMapeadas = stocksMapeadas
-        .filter(s => s.changePercent < 0)
-        .sort((a, b) => a.changePercent - b.changePercent);
-    } else if (currentFilter === 'volume') {
-      // Maior volume para menor
-      stocksMapeadas = stocksMapeadas
-        .sort((a, b) => b.volume - a.volume);
-    }
-
-    renderStocks(stocksMapeadas);
-  } catch (error) {
-    console.error('Erro ao aplicar filtro global', error);
-    if (grid) {
-      grid.innerHTML = '<p class="error">Erro ao carregar dados do mercado.</p>';
-    }
-  }
 }
 
 // ========================================
 // MODAL
 // ========================================
 function setupModal() {
-    const modal = document.getElementById('asset-modal');
+    const modal = document.getElementById('fund-modal');
     if (!modal) return;
     
     const closeBtn = modal.querySelector('.modal-close');
@@ -665,11 +620,11 @@ function setupModal() {
 // ========================================
 setInterval(() => {
     if (!isSearchActive && currentFilter !== 'favorites') {
-        loadStocks();
+        loadFunds();
     } else if (currentFilter === 'favorites') {
-        const favoritos = FavoritosManager.obterFavoritos().filter(f => f.type === 'acao');
+        const favoritos = FavoritosManager.obterFavoritos().filter(f => f.type === 'fundo');
         if (favoritos.length > 0) {
             loadFavoritesData(favoritos.map(f => f.symbol));
         }
     }
-}, 60000); // Atualiza a cada 60 segundos
+}, 60000);

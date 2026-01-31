@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fundos Imobiliários - Dashboard Financeiro</title>
+    <title>Fundos Imobiliários - Dashboard Financeiro Premium</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
@@ -11,164 +11,72 @@
 </head>
 <body>
     <div class="container">
-        <header class="page-header">
-            <h1 class="page-title">FUNDOS IMOBILIÁRIOS</h1>
-            <p class="page-subtitle">Dividendos e Rendimentos Mensais</p>
+        <header class="page-header animate-fadeInDown">
+            <h1 class="page-title">🏢 FUNDOS IMOBILIÁRIOS</h1>
+            <p class="page-subtitle">Rendimentos e Performance dos FIIs em Tempo Real</p>
         </header>
 
-        <nav class="main-nav">
+        <nav class="main-nav animate-fadeInUp">
             <ul class="nav-list">
                 <li><a href="index.html" class="nav-link">Início</a></li>
                 <li><a href="acoes.html" class="nav-link">Ações</a></li>
                 <li><a href="fundos.html" class="nav-link active">Fundos Imobiliários</a></li>
                 <li><a href="criptomoedas.html" class="nav-link">Criptomoedas</a></li>
+                <li><a href="sobre.html" class="nav-link">Sobre</a></li>
             </ul>
         </nav>
 
-        <!-- Stats Cards -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-label">Rendimento Mensal</div>
-                <div class="stat-value">R$ 1.247,50</div>
-                <div class="stat-subtext">Último pagamento: Jan/2026</div>
+        <!-- Search Bar ESTILIZADA -->
+        <div class="search-container animate-slideInRight">
+            <div class="search-bar">
+                <span class="search-icon">🔍</span>
+                <input 
+                    type="text" 
+                    id="search-input" 
+                    class="search-input" 
+                    placeholder="Digite o código do FII (ex: HGLG11, KNRI11, MXRF11...)"
+                    autocomplete="off"
+                />
+                <button class="search-btn">Buscar Fundo</button>
             </div>
-            <div class="stat-card">
-                <div class="stat-label">Yield Médio</div>
-                <div class="stat-value">0,89%</div>
-                <div class="stat-subtext">a.m. | 10,68% a.a.</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">Total em FIIs</div>
-                <div class="stat-value">R$ 142.500</div>
-                <div class="stat-subtext">15 fundos na carteira</div>
-            </div>
+            
+        </div>
+ <!-- Botões de Ordenação -->
+        <div class="sort-controls">
+            <button class="sort-btn active" data-sort="price-desc" title="Ordenar: Maior para Menor Valor">
+                ↓ Maior Valor
+            </button>
+            <button class="sort-btn" data-sort="price-asc" title="Ordenar: Menor para Maior Valor">
+                ↑ Menor Valor
+            </button>
         </div>
 
-        <!-- FIIs de Tijolo -->
-        <section class="mb-4">
-            <h2 class="card-title">FIIs de Tijolo (Imóveis Físicos)</h2>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Fundo</th>
-                        <th>Tipo</th>
-                        <th style="text-align: center;">Cotação</th>
-                        <th style="text-align: center;">Último Dividendo</th>
-                        <th style="text-align: center;">Yield Mensal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="symbol">HGLG11</div>
-                            <div class="asset-name">CSHG Logística</div>
-                        </td>
-                        <td><span class="badge badge-warning">Logística</span></td>
-                        <td class="price" style="text-align: center;">R$ 162,45</td>
-                        <td style="text-align: center;">
-                            <div class="text-success" style="font-weight: 600;">R$ 1,42</div>
-                            <div class="text-muted" style="font-size: 0.75rem;">15/01/2026</div>
-                        </td>
-                        <td style="text-align: center;">
-                            <span class="badge badge-info">0,87%</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="symbol">XPLG11</div>
-                            <div class="asset-name">XP Log</div>
-                        </td>
-                        <td><span class="badge badge-warning">Logística</span></td>
-                        <td class="price" style="text-align: center;">R$ 108,76</td>
-                        <td style="text-align: center;">
-                            <div class="text-success" style="font-weight: 600;">R$ 0,95</div>
-                            <div class="text-muted" style="font-size: 0.75rem;">15/01/2026</div>
-                        </td>
-                        <td style="text-align: center;">
-                            <span class="badge badge-info">0,87%</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="symbol">VISC11</div>
-                            <div class="asset-name">Vinci Shopping</div>
-                        </td>
-                        <td><span class="badge badge-warning">Shopping</span></td>
-                        <td class="price" style="text-align: center;">R$ 89,32</td>
-                        <td style="text-align: center;">
-                            <div class="text-success" style="font-weight: 600;">R$ 0,82</div>
-                            <div class="text-muted" style="font-size: 0.75rem;">15/01/2026</div>
-                        </td>
-                        <td style="text-align: center;">
-                            <span class="badge badge-info">0,92%</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="symbol">KNRI11</div>
-                            <div class="asset-name">Kinea Renda</div>
-                        </td>
-                        <td><span class="badge badge-warning">Lajes Corp.</span></td>
-                        <td class="price" style="text-align: center;">R$ 132,67</td>
-                        <td style="text-align: center;">
-                            <div class="text-success" style="font-weight: 600;">R$ 1,15</div>
-                            <div class="text-muted" style="font-size: 0.75rem;">15/01/2026</div>
-                        </td>
-                        <td style="text-align: center;">
-                            <span class="badge badge-info">0,87%</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
 
-        <!-- FIIs de Papel -->
-        <section class="mb-4">
-            <h2 class="card-title">FIIs de Papel (CRIs e Recebíveis)</h2>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Fundo</th>
-                        <th>Tipo</th>
-                        <th style="text-align: center;">Cotação</th>
-                        <th style="text-align: center;">Último Dividendo</th>
-                        <th style="text-align: center;">Yield Mensal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="symbol">MXRF11</div>
-                            <div class="asset-name">Maxi Renda</div>
-                        </td>
-                        <td><span class="badge badge-info">Papel</span></td>
-                        <td class="price" style="text-align: center;">R$ 10,23</td>
-                        <td style="text-align: center;">
-                            <div class="text-success" style="font-weight: 600;">R$ 0,11</div>
-                            <div class="text-muted" style="font-size: 0.75rem;">15/01/2026</div>
-                        </td>
-                        <td style="text-align: center;">
-                            <span class="badge badge-info">1,08%</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="symbol">KNCR11</div>
-                            <div class="asset-name">Kinea Rendimentos</div>
-                        </td>
-                        <td><span class="badge badge-info">Papel</span></td>
-                        <td class="price" style="text-align: center;">R$ 105,87</td>
-                        <td style="text-align: center;">
-                            <div class="text-success" style="font-weight: 600;">R$ 1,08</div>
-                            <div class="text-muted" style="font-size: 0.75rem;">15/01/2026</div>
-                        </td>
-                        <td style="text-align: center;">
-                            <span class="badge badge-info">1,02%</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
+        <!-- Filter Buttons -->
+        <div class="filter-container">
+            <button class="filter-btn active" data-filter="all">📊 Todos</button>
+            <button class="filter-btn" data-filter="high">📈 Maiores Altas</button>
+            <button class="filter-btn" data-filter="low">📉 Maiores Baixas</button>
+            <button class="filter-btn" data-filter="volume">💹 Maior Volume</button>
+        </div>
+
+        <!-- Funds Grid -->
+        <div id="funds-grid" class="assets-grid">
+            <div class="loading">Carregando fundos imobiliários...</div>
+        </div>
     </div>
+
+    <!-- Modal for Fund Details -->
+    <div id="fund-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div class="modal-body" id="modal-details">
+                <div class="loading">Carregando detalhes...</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="data/market-data.js"></script>
+    <script src="JS/fundos.js"></script>
 </body>
 </html>
