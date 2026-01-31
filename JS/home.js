@@ -204,9 +204,14 @@ async function carregarNoticias() {
             `;
 
     try {
-        const artigos = await buscarNoticias('(B3 OR Bovespa OR "mercado de ações" OR "fundos imobiliários" OR economia) AND Brasil', 4);
+    // Chamada para a sua Cloudflare Function em vez do NewsAPI direto
+    const query = encodeURIComponent('(B3 OR Bovespa OR "mercado de ações" OR "fundos imobiliários" OR economia) AND Brasil');
+    const response = await fetch(`/get-news?q=${query}&pageSize=4`);
+    
+    const data = await response.json();
+    const artigos = data.articles; // A estrutura do JSON vindo do Worker será a mesma
 
-        if (artigos && artigos.length > 0) {
+    if (artigos && artigos.length > 0) {
             container.innerHTML = artigos.map(noticia => `
                 <div class="news-card animate-fadeInUp" onclick="window.open('${noticia.url}', '_blank')">
                     <div class="news-image-container">

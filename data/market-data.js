@@ -2,11 +2,7 @@
 // CONFIGURAÇÃO DE APIs
 // ========================================
 const API_CONFIG = {
-    newsapi: {
-        key: '8f7311707a2845838bde6554318672b7',
-        baseUrl: 'https://newsapi.org/v2'
-    },
-    brapi: {
+      brapi: {
         baseUrl: 'https://brapi.dev/api',
         token: 'bSEpRmEesGWZqBtyyMFKwu'
     },
@@ -271,30 +267,25 @@ async function buscarCambio(moedas = ['USD-BRL']) {
 // ========================================
 async function buscarNoticias(pageSize = 2) {
     try {
-        // Melhor query para pegar notícias recentes do Brasil sobre finanças
         const hoje = new Date();
         const umaSemanaAtras = new Date(hoje.getTime() - 7 * 24 * 60 * 60 * 1000);
         const dataFrom = umaSemanaAtras.toISOString().split('T')[0];
-        
-        // Query otimizada para notícias brasileiras de economia/finanças
         const query = encodeURIComponent('(Bolsa OR Ibovespa OR B3 OR economia OR investimento) Brasil');
         
+        // MUDANÇA AQUI: Chamamos o endpoint relativo do seu Worker
         const response = await fetch(
-            `${API_CONFIG.newsapi.baseUrl}/everything?q=${query}&language=pt&from=${dataFrom}&sortBy=publishedAt&pageSize=${pageSize}&apiKey=${API_CONFIG.newsapi.key}`
+            `/get-news?q=${query}&from=${dataFrom}&pageSize=${pageSize}`
         );
         
         const data = await response.json();
         
-        if (data.status === 'ok' && data.articles && data.articles.length > 0) {
-            // Filtra artigos com imagem e título válido
+        if (data.status === 'ok' && data.articles) {
             return data.articles.filter(article => 
                 article.urlToImage && 
                 article.title && 
-                article.title !== '[Removed]' &&
-                !article.title.includes('removed')
+                article.title !== '[Removed]'
             );
         }
-        
         return null;
     } catch (error) {
         console.error('Erro ao buscar notícias:', error);
